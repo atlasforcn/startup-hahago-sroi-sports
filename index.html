@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HAHAGO SROI Sports For Good Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要內容</a>
+
+    <main id="main-content" class="app-shell">
+      <header class="hero">
+        <nav class="topline" aria-label="平台資訊">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">H</span>
+            <span>HAHAGO SROI Arena</span>
+          </div>
+          <a class="source-link" href="https://sccontest.tca.org.tw/content/display#sectionB" target="_blank" rel="noreferrer">
+            <span>官方來源</span>
+            <strong>創業歸故里 113 年得獎名單</strong>
+          </a>
+        </nav>
+
+        <div class="hero-layout">
+          <section class="hero-copy" aria-label="作品摘要">
+            <p class="eyebrow">113 創業歸故里 · 服務推廣獎 · 新竹市全區</p>
+            <h1>以 SROI 為媒合評估基準之 HAHAGO 運動做公益平台</h1>
+            <p class="lead">
+              把路跑、單車、球類與健走活動轉成可比較的公益任務，讓參與者、企業與 NGO 用同一組影響力指標完成媒合。
+            </p>
+            <div class="award-strip" aria-label="得獎資訊">
+              <span>鉅碼科技(股)公司 - HAHAGO團隊</span>
+              <span>數位發展部數位產業署</span>
+              <span>SROI 媒合評估</span>
+            </div>
+          </section>
+
+          <section class="hero-board" aria-label="公益成果跑道">
+            <div class="board-head">
+              <span>Impact Track</span>
+              <strong id="hero-score">0</strong>
+            </div>
+            <canvas id="impact-track" width="560" height="320" aria-label="公益成果追蹤圖"></canvas>
+            <div class="board-footer">
+              <span>推薦活動</span>
+              <strong id="hero-event">城市接力 Run for Books</strong>
+            </div>
+          </section>
+        </div>
+      </header>
+
+      <section class="metric-row" aria-label="即時摘要">
+        <article class="metric-block">
+          <span>推薦分數</span>
+          <strong id="metric-match">0</strong>
+          <small>角色、議題、規模加權</small>
+        </article>
+        <article class="metric-block accent">
+          <span>估算 SROI</span>
+          <strong id="metric-sroi">0.00x</strong>
+          <small>社會價值 / 投入成本</small>
+        </article>
+        <article class="metric-block">
+          <span>公益款項</span>
+          <strong id="metric-funds">NT$0</strong>
+          <small>活動承諾與新增成果</small>
+        </article>
+        <article class="metric-block dark">
+          <span>任務完成</span>
+          <strong id="metric-tasks">0%</strong>
+          <small>參與者、企業、NGO</small>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <section class="panel match-panel" aria-labelledby="match-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Match Lab</p>
+              <h2 id="match-title">運動公益活動媒合</h2>
+            </div>
+            <span id="match-count" class="status-chip">4 場候選</span>
+          </div>
+
+          <div class="control-grid">
+            <label class="field">
+              <span>登入角色</span>
+              <select id="role-select">
+                <option value="participant">參與者</option>
+                <option value="company" selected>企業</option>
+                <option value="ngo">NGO</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>公益目標</span>
+              <select id="cause-select">
+                <option value="education" selected>教育平權</option>
+                <option value="health">健康促進</option>
+                <option value="inclusion">共融參與</option>
+                <option value="environment">環境永續</option>
+              </select>
+            </label>
+            <label class="field range-field">
+              <span>活動規模 <output id="scale-output" for="scale-range">70</output></span>
+              <input id="scale-range" type="range" min="30" max="100" value="70" />
+            </label>
+          </div>
+
+          <div id="event-list" class="event-list" aria-label="推薦活動清單"></div>
+        </section>
+
+        <section class="panel recommendation-panel" aria-labelledby="recommend-title">
+          <div class="panel-heading compact">
+            <div>
+              <p class="panel-kicker">Recommendation</p>
+              <h2 id="recommend-title">配對建議</h2>
+            </div>
+            <button id="adopt-recommendation" class="icon-button" type="button" aria-label="採用目前最高推薦">
+              <span aria-hidden="true">↻</span>
+            </button>
+          </div>
+
+          <div class="score-lockup">
+            <span id="selected-score">0</span>
+            <div>
+              <strong id="selected-title">活動名稱</strong>
+              <small id="selected-meta">公益賽事媒合資訊</small>
+            </div>
+          </div>
+
+          <div id="selected-tags" class="tag-row" aria-label="活動標籤"></div>
+          <ul id="selected-reasons" class="reason-list"></ul>
+
+          <div class="match-actions">
+            <button id="sync-sroi" class="primary-action" type="button">
+              <span aria-hidden="true">+</span>
+              帶入 SROI
+            </button>
+            <button id="seed-outcome" class="secondary-action" type="button">
+              <span aria-hidden="true">✓</span>
+              建立追蹤
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <section class="ops-grid">
+        <section class="panel tasks-panel" aria-labelledby="tasks-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Mission Board</p>
+              <h2 id="tasks-title">參與者/企業/NGO 任務</h2>
+            </div>
+            <div class="progress-badge">
+              <span id="task-progress-label">0%</span>
+            </div>
+          </div>
+
+          <div id="task-tabs" class="role-tabs" aria-label="任務角色">
+            <button class="active" type="button" data-task-role="participant">參與者</button>
+            <button type="button" data-task-role="company">企業</button>
+            <button type="button" data-task-role="ngo">NGO</button>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="task-progress-bar"></span>
+          </div>
+          <div id="task-list" class="task-list"></div>
+        </section>
+
+        <section class="panel sroi-panel" aria-labelledby="sroi-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">SROI Estimator</p>
+              <h2 id="sroi-title">SROI 指標估算</h2>
+            </div>
+            <span id="sroi-health" class="status-chip">估算中</span>
+          </div>
+
+          <div class="sroi-layout">
+            <div class="dial" id="sroi-dial" aria-label="SROI 倍數">
+              <strong id="sroi-ratio">0.00x</strong>
+              <span>社會投資報酬</span>
+            </div>
+            <div class="sroi-controls">
+              <label>
+                <span>企業投入 <output id="sponsor-output" for="sponsor-input">NT$180,000</output></span>
+                <input id="sponsor-input" type="range" min="80000" max="500000" step="10000" value="180000" />
+              </label>
+              <label>
+                <span>參與人數 <output id="participants-output" for="participants-input">420</output></span>
+                <input id="participants-input" type="range" min="120" max="900" step="10" value="420" />
+              </label>
+              <label>
+                <span>平均里程 <output id="distance-output" for="distance-input">5.2 km</output></span>
+                <input id="distance-input" type="range" min="2" max="15" step="0.1" value="5.2" />
+              </label>
+              <label>
+                <span>志工時數 <output id="volunteer-output" for="volunteer-input">310</output></span>
+                <input id="volunteer-input" type="range" min="80" max="900" step="10" value="310" />
+              </label>
+              <label>
+                <span>任務完成率 <output id="completion-output" for="completion-input">86%</output></span>
+                <input id="completion-input" type="range" min="50" max="100" step="1" value="86" />
+              </label>
+            </div>
+          </div>
+
+          <div id="sroi-breakdown" class="breakdown-list" aria-label="SROI 拆解"></div>
+        </section>
+      </section>
+
+      <section class="panel outcome-panel" aria-labelledby="outcome-title">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Impact Ledger</p>
+            <h2 id="outcome-title">公益成果追蹤</h2>
+          </div>
+          <div class="outcome-actions">
+            <button id="add-outcome" class="primary-action small" type="button">
+              <span aria-hidden="true">+</span>
+              新增成果
+            </button>
+            <button id="reset-outcome" class="secondary-action small" type="button">
+              <span aria-hidden="true">↺</span>
+              重置
+            </button>
+          </div>
+        </div>
+
+        <div class="ledger-grid">
+          <div id="outcome-list" class="outcome-list" aria-label="成果指標"></div>
+          <div class="feed-wrap">
+            <div class="feed-head">
+              <span>最新紀錄</span>
+              <strong id="feed-count">0</strong>
+            </div>
+            <div id="activity-feed" class="activity-feed"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
