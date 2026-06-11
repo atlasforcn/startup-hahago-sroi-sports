@@ -1,5 +1,21 @@
 # HAHAGO SROI Sports For Good Platform
 
+## 快速看懂
+
+![startup-hahago-sroi-sports 功能截圖](docs/preview.png)
+
+- 線上 Demo：https://atlasforcn.github.io/startup-hahago-sroi-sports/
+- 這個原型在做什麼：把 HAHAGO 做成運動公益媒合與 SROI 影響力評估平台。
+- 特色定位：特色是把公益活動媒合和社會投資報酬率放在同一個決策畫面。
+- 操作流程：選擇企業、NGO 或活動需求 → 依參與人數與任務估算 SROI → 追蹤活動成果、公益影響與推薦配對
+
+<details>
+<summary>展開完整功能流程截圖</summary>
+
+![startup-hahago-sroi-sports 完整功能流程截圖](docs/flow.png)
+
+</details>
+
 這個 repo 是依據 `鉅碼科技(股)公司 - HAHAGO團隊` 在 113 年創業歸故里得獎名單中的作品概念，製作出的前端互動 demo。原型把「運動做公益」理解為一個以 SROI（Social Return on Investment，社會投資報酬）作為媒合評估基準的平台，協助參與者、企業與 NGO 找到最適合的公益運動任務。
 
 ## 比賽來源
